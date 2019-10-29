@@ -7,7 +7,8 @@ GROUP 3
 MMSEQ.C
 	To Build: gcc mmseq.c -o mmseq
 	To Run  : ./mmseq
-	To Test :
+	To Test : ./a.out maxrandom seed size
+		  EX: ./a.out 25 7 12
 	
 
 MMPTHREAD.C
