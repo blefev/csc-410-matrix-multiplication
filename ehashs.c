@@ -6,20 +6,16 @@
 
 #define LENGTH 4
 #define START_ASCII 'a'
-#define END_ASCII 'z'
+#define END_ASCII 't'
 
 unsigned long hash(char *str);
-int searchCharSet(char val, char charSet[]);
-void printAnswer(char charSet[], char* hashedVal);
-void findCombinations(char arr[], char ans[], int n, int k, char* hashedVal, int found);
+void findCombinations(char ans[], int k, char* hashedVal, int found);
 
 int main(int argc, char **argv)
 {
 	char* hashedVal;
 	int i;
-	char charSet[62] =  { '0','1','2','3','4','5','6','7','8','9',
-	'a','b','c','d','e','f','g','h','i','j' ,'k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-	'A','B','C','D','E','F','G','H','I','J','C','L','M','N','O','P','Q','R','S','T','U','V','X','Y','Z' };
+	char ans[LENGTH + 1] = "";
 
 	if (argc != 2)
 	{
@@ -29,25 +25,16 @@ int main(int argc, char **argv)
 
 	hashedVal = argv[1];
 
-	printAnswer(charSet, hashedVal);
+	findCombinations(ans, LENGTH, hashedVal, -1);
 
 	return 0;
 }
 
-//n = length of char set
-//k = LENGTH
-void printAnswer(char charSet[], char* hashedVal)
+void findCombinations(char ans[], int k, char* hashedVal, int found)
 {
-	int i = 0, j;
-	char ans[LENGTH] = "";
-
-	findCombinations(charSet, ans, strlen(charSet), LENGTH, hashedVal, -1);
-}
-
-void findCombinations(char arr[], char ans[], int n, int k, char* hashedVal, int found)
-{
-	int i, j;
-	char newAns[LENGTH];
+	char i;
+	int j;
+	char newAns[LENGTH + 1];
 
 	if (found == 0)
 		return;
@@ -59,28 +46,16 @@ void findCombinations(char arr[], char ans[], int n, int k, char* hashedVal, int
 			printf("%s\n", ans);
 			found = 0;
 		}
+
 		return;
 	}
 
-	for (i = searchCharSet(START_ASCII, arr); i < searchCharSet(END_ASCII, arr) + 1; i++)
+	for (i = START_ASCII; i <= END_ASCII; i++)
 	{
-		for (j = 0; j < LENGTH; j++)
+		for (j = 0; j < LENGTH + 1; j++)
 			newAns[j] = ans[j];
 
-		newAns[strlen(ans)] = arr[i];
-		findCombinations(arr, newAns, n, k - 1, hashedVal, found);
+		newAns[strlen(ans)] = i;
+		findCombinations(newAns, k - 1, hashedVal, found);
 	}
-}
-
-int searchCharSet(char val, char charSet[])
-{
-	int i; 
-
-	for (i = 0; i < strlen(charSet); i++)
-	{
-		if (charSet[i] == val)
-			return i;
-	}
-
-	return -1;
 }
