@@ -40,16 +40,8 @@ int main()
         for(j = 0; j < col1; j++)
 
             matrixOne[i][j] = rand() % 10;
-// generate rand values for matrixTwo
-    for(i = 0; i < row1; i++)
-
-        for(j = 0; j < col1; j++)
-
-            matrixTwo[i][j] = rand() % 10;
-
-
-
-    // print  matrixOne
+    
+   // print  matrixOne
     printf("Matrix One: \n");
     for(i = 0; i < row1; i++)
     {
@@ -57,6 +49,13 @@ int main()
             printf("%d ", matrixOne[i][j]);
             printf("\n");
     }
+    
+    // generate rand values for matrixTwo
+    for(i = 0; i < row1; i++)
+
+        for(j = 0; j < col1; j++)
+
+            matrixTwo[i][j] = rand() % 10;
 
     // print  matrixTwo
     printf("Matrix Two: \n");
