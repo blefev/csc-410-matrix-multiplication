@@ -1,110 +1,86 @@
 //Matrix Multiplication Pthread
 #include <stdio.h>
-#include <stdlib.h>
 #include <pthread.h>
+#include <stdlib.h>
 
-#define MAT 5
+// maximum size of matrix
+#define MAX 10
 
-void *matmul(void* arg)
+// number of threads
+#define NUM_THREAD 5
+
+int matrixOne[MAX][MAX];
+int matrixTwo[MAX][MAX];
+int matrixThree[MAX][MAX];
+int tmp = 0;
+
+void* mult(void* arg)
 {
-    int *nums = (int *)arg;
-    int i = 0;
-    int j = 0;
+    int core = tmp++;
 
-    int tmp = nums[0];
-    for(i = 1; i <= tmp; i++)
-
-        j += nums[i]*nums[i+tmp];
-        int *p = (int*)malloc(sizeof(int));
-        *p = j;
-        // terminate thread return pointer
-        pthread_exit(p);
-
-}//end matmul
+    for (int i = core * MAX / 5; i < (core + 1) * MAX / 5; i++)
+        for (int j = 0; j < MAX; j++)
+            for (int k = 0; k < MAX; k++)
+                 matrixThree[i][j] += matrixOne[i][k] * matrixTwo[k][j];
+}
 
 int main()
 {
-    int matrixOne[MAT][MAT];
-    int matrixTwo[MAT][MAT];
-
-    int row1 = MAT;
-    int col1 = MAT;
-    int row2 = MAT;
-    int col2 = MAT;
-
-    int i, j, k;
-
-    // generate rand values for matrixOne
-    for(i = 0; i < row1; i++)
-
-        for(j = 0; j < col1; j++)
-
-            matrixOne[i][j] = rand() % 10;
-    
-   // print  matrixOne
-    printf("Matrix One: \n");
-    for(i = 0; i < row1; i++)
-    {
-        for(j = 0; j < col1; j++)
-            printf("%d ", matrixOne[i][j]);
-            printf("\n");
-    }
-    
-    // generate rand values for matrixTwo
-    for(i = 0; i < row1; i++)
-
-        for(j = 0; j < col1; j++)
-
-            matrixTwo[i][j] = rand() % 10;
-
-    // print  matrixTwo
-    printf("Matrix Two: \n");
-    for(i = 0; i < row2; i++)
-    {
-        for(j = 0; j < col2; j++)
-            printf("%d ", matrixTwo[i][j]);
-            printf("\n");
-    }
-
-    int tar = row1*col2;
-    // declaring threads
-    pthread_t *threads;
-    threads = (pthread_t*)malloc(tar*sizeof(pthread_t));
-
-    int count = 0;
-    int* nums = NULL;
-
-    for(i = 0; i < row1; i++)
-
-        for(j = 0; j < col2; j++)
+    // Generating random values for matrixOne and matrixTwo
+    for (int i = 0; i < MAX; i++)
+     {
+        for (int j = 0; j < MAX; j++)
         {
-            nums = (int *)malloc((1000)*sizeof(int));
-            nums[0] = col1;
-
-            for(k = 0; k < col1; k++)
-
-                nums[k+1] = matrixOne[i][k];
-
-            for(k = 0; k < row2; k++)
-
-                nums[k+col1+1] = matrixTwo[k][j];
-
-            // creating threads
-            pthread_create(&threads[count++], NULL, matmul, (void*)(nums));
-
+            matrixOne[i][j] = rand() % 10;
+            matrixTwo[i][j] = rand() % 10;
         }
+    }
 
-    printf("Multiplied Matrix Result: \n");
-    for(i = 0; i < tar; i++)
+    // print matrixOne
+    printf("Matrix One: \n");
+    for(int i = 0; i < MAX; i++)
     {
-        void *k;
-        // joining the threads
-        pthread_join(threads[i], &k);
+        for(int j = 0; j < MAX; j++)
+        {
+            printf("%d ", matrixOne[i][j]);
+        }
+        printf("\n");
+    }
+    // print matrixTwo
+    printf("Matrix Two: \n");
+    for(int i = 0; i < MAX; i++)
+    {
+        for(int j = 0; j < MAX; j++)
+        {
+            printf("%d ", matrixTwo[i][j]);
+        }
+        printf("\n");
+    }
 
-        int *p = (int *)k;
-        printf("%d ", *p);
-        if((i + 1) % col2 == 0)
-            printf("\n");
+    // declaring threads
+    pthread_t threads[NUM_THREAD];
+
+    // creating threads
+    for (int i = 0; i < NUM_THREAD; i++)
+     {
+        int* p;
+        pthread_create(&threads[i], NULL, mult, (void*)(p));
+    }
+
+    // joining and waiting for all threads
+    for (int i = 0; i < NUM_THREAD; i++)
+        pthread_join(threads[i], NULL);
+
+    // print matrixThree
+    printf("Multiplied Matrix Result: \n");
+    for(int i = 0; i < MAX; i++)
+    {
+        for(int j = 0; j < MAX; j++)
+        {
+            printf("%d ", matrixThree[i][j]);
+        }
+        printf("\n");
     }
     return 0;
-}//end main
+}
+   
