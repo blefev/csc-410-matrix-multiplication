@@ -3,60 +3,41 @@
 #include <omp.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 #define H_A 11 // height of matrix A
 #define W_A 11 // width of matrix A
 #define H_B 11 // height of matrix B
 #define W_B 11 // width of matrix B
 
-int** matMul(int A[H_A][W_A] , int B[H_B][W_A] );
+int** matMul(int** A, int** B);
 
-void  printMatrix(int** matrix, size_t height, size_t width);
+void printMatrix(int** matrix, size_t height, size_t width);
+int** makeRandMatrix(size_t height, size_t width);
 
 int main() {
-	int A[H_A][W_A]  = {
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-	};
+	int** A = makeRandMatrix(H_A, W_A);
+	int** B = makeRandMatrix(H_B, W_B);
 
-	int B[H_B][W_B]  = {
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-		{84, 12, 15, 88, 15,84, 15, 320, 15, 384, 15},
-		{10, 53, 85, 1, 5, 83, 84, 32, 842, 94, 92},
-	};
+	printf("\nMatrix A:\n");
+	printMatrix(A, H_A, W_A);
+	printf("\nMatrix B:\n");
+	printMatrix(B, H_B, W_B);
 
 	int** dotProduct = matMul(A, B);
 
+	printf("\nDot Product A*B:\n");
 	printMatrix(dotProduct, W_A, H_B);
 
 	return 0;
 }
 
-int** matMul(int A[H_A][W_A] , int B[H_B][W_A] ) {
+int** matMul(int** A, int** B) {
 	// if matrices are not compatible for multiplication, exit the program
 	if (W_A != H_B) {
 		printf("Matrices are not multiplicable. Exiting...\n");
 		return  NULL;
 	}
 
-	// create a vector with rows = a rows, cols = b cols
-	//int C[W_A][H_B];
 	int** C = malloc(sizeof(int*) * W_A);
 
     for(size_t i = 0; i < W_A; i++) {
@@ -71,7 +52,6 @@ int** matMul(int A[H_A][W_A] , int B[H_B][W_A] ) {
 
 			// calculate products and sums for dot product
 			for (size_t k = 0; k < H_B; k++) {
-				usleep(5000);
 				sum += A[i][k] * B[k][j];
 				C[i][j] = sum;
 			}
@@ -87,4 +67,23 @@ void  printMatrix(int** matrix, size_t height, size_t width) {
 		}
 		printf("\n");
 	}
+}
+
+int** makeRandMatrix(size_t height, size_t width) {
+	int** matrix = malloc(sizeof(int*) * height);
+
+    for(size_t i = 0; i < width; i++) {
+		printf("allocating width..\n");
+        matrix[i] = malloc(sizeof(int*) * width);
+    }
+
+	for (size_t i = 0; i < height; i++) {
+		for (size_t j = 0; j < width; j++) {
+			printf("setting valu..\n");
+			printf("i,j: %d,%d\n", i,j);
+            matrix[i][j] = rand() % 10;
+		}
+	}
+
+	return matrix;
 }
