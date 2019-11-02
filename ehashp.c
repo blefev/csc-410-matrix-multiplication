@@ -9,7 +9,10 @@
 int FOUND = 0;
 
 unsigned long hash(char *str);
-void findPermutations(char* hashedVal);
+void findPerms();
+void findPermsWorker(char* str, unsigned int pos);
+
+char* Hashed_Val;
 
 // translate char
 char xlt(char c) {
@@ -25,43 +28,46 @@ char xlt(char c) {
 
 int main(int argc, char **argv)
 {
-	char* hashedVal;
-
 	if (argc != 2)
 	{
 		printf("Must include hashed number. Exiting.\n");
 		return -1;
 	}
 
-	hashedVal = argv[1];
+	Hashed_Val = argv[1];
 
-	findPermutations(hashedVal);
+	findPerms(Hashed_Val);
 
 	return 0;
 }
 
-void findPermutations(char* hashedVal)
-{
-	char ans[LENGTH+1];
-	//ans[LENGTH] = '\0';
+void findPermsWorker(char str[], unsigned int pos) {
+	// we have made a full string, check if it is the one
+	if (pos == LENGTH) {
+		printf("%s\n", str);
+		if (atol(Hashed_Val) == hash(str)) {
+			printf("found answer!: %s\n", str);
 
-	#pragma omp parallel for num_threads(4) schedule(static) private(ans)
-	for (unsigned short int i = 97; i < 125; i++) {
-		for (unsigned short int j = 'a'; j < 'z'+3; j++) {
-			for (unsigned short int k = 'a'; k < 'z'+3; k++) {
-				for (unsigned short int l = 'a'; l < 'z'+3; l++) {
-					sprintf(ans, "%c%c%c%c",xlt(i),xlt(j),xlt(k),xlt(l));
-
-					printf("%s\n", ans);
-
-					if (atol(hashedVal) == hash(ans)) {
-						printf("found answer!: %s\n", ans);
-
-						exit(0);
-					}
-				}
-			}
+			exit(0);
 		}
+		return;
+	}
+
+	for (unsigned short int j = 'a'; j < 'z'+3; j++) {
+		str[pos] = xlt(j);
+		findPermsWorker(str, pos+1);
+	}
+}
+
+void findPerms()
+{
+	char str[LENGTH+1];
+	str[LENGTH] = '\0';
+
+	#pragma omp parallel for  private(str)
+	for (unsigned short int i = 97; i < 125; i++) {
+		str[0] = i;
+		findPermsWorker(str, 1);
 	}
 }
 
