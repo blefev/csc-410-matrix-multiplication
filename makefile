@@ -1,4 +1,4 @@
-asll: ehashs ehashp mmomp mmpthread mmseq
+all: ehashs ehashp mmomp mmpthread mmseq
 
 clean:
 	rm -f ehashs ehashp mmomp mmpthread mmseq
