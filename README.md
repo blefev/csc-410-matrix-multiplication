@@ -14,7 +14,7 @@ MMSEQ.C
 MMPTHREAD.C
 	To Build: gcc mmpthread.c -lpthread -o mmpthread
 	To Run  : ./mmpthread
-	To Test :
+	To Test : time ./a.out
 
 
 MMOMP.C
