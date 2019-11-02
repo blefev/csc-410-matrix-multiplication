@@ -23,7 +23,9 @@ MMOMP.C
 	To Test :
 
 
-EHASHS.C
+EHASHS.C - you must go into the code and add the length of the word at the start
+	   and end characters used in the hash. These are defined at the top of the
+	   program
 	To Build: gcc ehashs.c hashfun.o -o ehashs
 	To Run  : ./ehash {hash_number}
 	To Test :
