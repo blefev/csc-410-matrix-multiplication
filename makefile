@@ -13,7 +13,7 @@ mmomp: mmomp.c
 	gcc -fopenmp mmomp.c -o mmomp
 
 mmpthread: mmpthread.c
-	gcc -pthread mmpthread.c -o mmpthread
+	gcc -lpthread mmpthread.c -o mmpthread
 
 mmseq: mmseq.c
 	gcc mmseq.c -o mmseq
