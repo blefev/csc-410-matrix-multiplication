@@ -35,5 +35,7 @@ To clean all: `make clean`
 
 ## EHASHS.C
 	* To Build: `make ehashs`
-	* To Run  : `./ehashs <hash>`
-	* To Test :
+	* To Run  : `./ehashs {hash_number}`
+	* To Test : you must go into the code and add the length of the word at the start
+	   and end characters used in the hash. These are defined at the top of the
+	   program
