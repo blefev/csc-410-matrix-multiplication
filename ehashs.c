@@ -7,9 +7,10 @@
 #define LENGTH 4
 #define START_ASCII 'a'
 #define END_ASCII 't'
+int FOUND = 0;
 
 unsigned long hash(char *str);
-void findCombinations(char ans[], int k, char* hashedVal, int found);
+void findCombinations(char ans[], int k, char* hashedVal);
 
 int main(int argc, char **argv)
 {
@@ -25,18 +26,18 @@ int main(int argc, char **argv)
 
 	hashedVal = argv[1];
 
-	findCombinations(ans, LENGTH, hashedVal, -1);
+	findCombinations(ans, LENGTH, hashedVal);
 
 	return 0;
 }
 
-void findCombinations(char ans[], int k, char* hashedVal, int found)
+void findCombinations(char ans[], int k, char* hashedVal)
 {
 	char i;
 	int j;
 	char newAns[LENGTH + 1];
 
-	if (found == 0)
+	if (FOUND == 1)
 		return;
 
 	if (k == 0)
@@ -44,7 +45,7 @@ void findCombinations(char ans[], int k, char* hashedVal, int found)
 		if (hash(ans) == atol(hashedVal))
 		{
 			printf("%s\n", ans);
-			found = 0;
+			FOUND = 1;
 		}
 
 		return;
@@ -56,6 +57,6 @@ void findCombinations(char ans[], int k, char* hashedVal, int found)
 			newAns[j] = ans[j];
 
 		newAns[strlen(ans)] = i;
-		findCombinations(newAns, k - 1, hashedVal, found);
+		findCombinations(newAns, k - 1, hashedVal);
 	}
 }
