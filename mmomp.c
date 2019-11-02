@@ -3,10 +3,10 @@
 #include <omp.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define H_A 11
-#define W_A 11
-#define H_B 11
-#define W_B 11
+#define H_A 11 // height of matrix A
+#define W_A 11 // width of matrix A
+#define H_B 11 // height of matrix B
+#define W_B 11 // width of matrix B
 
 int** matMul(int A[H_A][W_A] , int B[H_B][W_A] );
 

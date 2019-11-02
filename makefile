@@ -1,4 +1,4 @@
-all: ehashs ehashp mmomp mmpthread mmseq
+all: ehashs ehashp mmomp mmpthread mmseq hasht2
 
 clean:
 	rm -f ehashs ehashp mmomp mmpthread mmseq
