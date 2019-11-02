@@ -73,15 +73,12 @@ int** makeRandMatrix(size_t height, size_t width) {
 	int** matrix = malloc(sizeof(int*) * height);
 
     for(size_t i = 0; i < width; i++) {
-		printf("allocating width..\n");
         matrix[i] = malloc(sizeof(int*) * width);
     }
 
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
-			printf("setting valu..\n");
-			printf("i,j: %d,%d\n", i,j);
-            matrix[i][j] = rand() % 10;
+            matrix[i][j] = j;//rand() % 10;
 		}
 	}
 
