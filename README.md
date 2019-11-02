@@ -21,3 +21,9 @@ MMOMP.C
 	To Build: gcc mmomp.c -fopenmp -o mmomp
 	To Run  : ./mmomp
 	To Test :
+
+
+EHASHS.C
+	To Build: gcc ehashs.c hashfun.o -o ehashs
+	To Run  : ./ehash {hash_number}
+	To Test :
