@@ -44,9 +44,9 @@ int main(int argc, char **argv)
 void findPermsWorker(char str[], unsigned int pos) {
 	// we have made a full string, check if it is the one
 	if (pos == LENGTH) {
-		printf("%s\n", str);
+		//printf("%s\n", str);
 		if (atol(Hashed_Val) == hash(str)) {
-			printf("found answer!: %s\n", str);
+			printf("%s\n", str);
 
 			exit(0);
 		}
