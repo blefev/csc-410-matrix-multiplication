@@ -53,7 +53,7 @@ void findPermsWorker(char str[], unsigned int pos) {
 		return;
 	}
 
-	for (unsigned short int j = 'a'; j < 'z'+3; j++) {
+	for (unsigned short int j = 'a'; j <= 'z'+3; j++) {
 		str[pos] = xlt(j);
 		findPermsWorker(str, pos+1);
 	}
@@ -65,8 +65,8 @@ void findPerms()
 	str[LENGTH] = '\0';
 
 	#pragma omp parallel for  private(str)
-	for (unsigned short int i = 97; i < 125; i++) {
-		str[0] = i;
+	for (unsigned short int i = 'a'; i <= 'z' + 3; i++) {
+		str[0] = xlt(i);
 		findPermsWorker(str, 1);
 	}
 }
