@@ -29,13 +29,11 @@ To clean all: `make clean`
 * To Test :
 
 ## EHASHP.C
-* To Build: `make ehashp`
-* To Run  : `./ehashp <hash>`
+* To Build: `make hasht1`
+* To Run  : `./hasht1 <hash>`
 * To Test :
 
 ## EHASHS.C
-* To Build: `make ehashs`
-* To Run  : `./ehashs {hash_number}`
-* To Test : you must go into the code and add the length of the word at the start
-	   and end characters used in the hash. These are defined at the top of the
-	   program
+* To Build: `make hasht2`
+* To Run  : `./hasht2 {hash_number}`
+* To Test : 
