@@ -5,12 +5,26 @@
 #include <string.h>
 
 #define LENGTH 4
-#define START_ASCII 'a'
-#define END_ASCII 't'
 int FOUND = 0;
 
 unsigned long hash(char *str);
 void findCombinations(char ans[], int k, char* hashedVal);
+
+// translate char
+char xlt(char c)
+{
+	if (c < 123)
+		return c;
+
+	switch (c)
+	{
+		case 123: return '@';
+		case 124: return '*';
+		case 125: return '&';
+	}
+
+	return c;
+}
 
 int main(int argc, char **argv)
 {
@@ -51,12 +65,12 @@ void findCombinations(char ans[], int k, char* hashedVal)
 		return;
 	}
 
-	for (i = START_ASCII; i <= END_ASCII; i++)
+	for (i = 'a'; i <= 'z' + 3; i++)
 	{
 		for (j = 0; j < LENGTH + 1; j++)
 			newAns[j] = ans[j];
 
-		newAns[strlen(ans)] = i;
+		newAns[strlen(ans)] = xlt(i);
 		findCombinations(newAns, k - 1, hashedVal);
 	}
 }
