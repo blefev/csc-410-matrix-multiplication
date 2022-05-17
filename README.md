@@ -20,20 +20,16 @@ To clean all: `make clean`
 ## MMPTHREAD.C
 * To Build: `make mmpthread`
 * To Run  : `./mmpthread`
-* To Test : `time ./a.out`
 
 
 ## MMOMP.C
 * To Build: `make mmomp`
 * To Run  : `./mmomp`
-* To Test :
 
 ## EHASHP.C
 * To Build: `make hasht1`
 * To Run  : `./hasht1 <hash>`
-* To Test :
 
 ## EHASHS.C
 * To Build: `make hasht2`
 * To Run  : `./hasht2 {hash_number}`
-* To Test : 
