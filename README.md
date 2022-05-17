@@ -1,4 +1,8 @@
-# GROUP 3
+## Matrix Multiplication with various parallelization techniques
+
+Matrix multiplication implemented sequentially and in various paralellization methods for comparing performance.
+
+# Authors
 * Caitlin Rudolph
 * Brendan Lefevre
 * Teresa Bitterman
