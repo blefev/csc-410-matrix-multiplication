@@ -40,9 +40,9 @@ int** matMul(int** A, int** B) {
 
 	int** C = malloc(sizeof(int*) * W_A);
 
-    for(size_t i = 0; i < W_A; i++) {
-        C[i] = malloc(sizeof(int*) * H_B);
-    }
+	for(size_t i = 0; i < W_A; i++) {
+		C[i] = malloc(sizeof(int*) * H_B);
+	}
 	// go through each row
 	#pragma omp parallel for schedule(static, 1)
 	for (size_t i = 0; i < H_A; i++) {
@@ -72,9 +72,9 @@ void  printMatrix(int** matrix, size_t height, size_t width) {
 int** makeRandMatrix(size_t height, size_t width) {
 	int** matrix = malloc(sizeof(int*) * height);
 
-    for(size_t i = 0; i < width; i++) {
-        matrix[i] = malloc(sizeof(int*) * width);
-    }
+	for(size_t i = 0; i < width; i++) {
+		matrix[i] = malloc(sizeof(int*) * width);
+	}
 
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
